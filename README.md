@@ -2,8 +2,8 @@
 
 This repository includes the code to reproduce our paper "CLAD: Towards Robust Audio Deepfake Detection Against Manipulation Attacks with Contrastive Learning".
 
-Our paper is still under review. Current version contains the main part of the code of CLAD which contains the complete evaluation script of manipulation attacks and the training script of the CLAD model. You can evaluate the pretrained CLAD model to reproduce our results.
-
+Our paper is still under review. Current version contains the main part of the code of CLAD which contains the complete evaluation script of manipulation attacks.
+You can evaluate the pretrained CLAD model to reproduce our results.
 
 A more comprehensive version will be available soon.
 
@@ -33,10 +33,6 @@ You can download ASVspoof2019 dataset from https://datashare.ed.ac.uk/handle/102
 After that, change the `database_path` in `config.conf` so that the script will be able to find it.
 
 For the evaluation of environmental noise, you need to download [ESC-50 dataset](https://github.com/karolpiczak/ESC-50). After that, change the `noise_dataset_path` in `config.conf` file.
-
-## Training
-
-The training script of CLAD can be found in `Training.ipynb`. Check the `config.conf` file and parameter part in the script before running it.
 
 ## Evalation
 
