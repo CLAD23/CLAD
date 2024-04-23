@@ -1,10 +1,8 @@
-# CLAD: Towards Robust Audio Deepfake Detection Against Manipulation Attacks with Contrastive Learning
+# CLAD: Robust Audio Deepfake Detection Against Manipulation Attacks with Contrastive Learning
 
-This repository includes the code to reproduce our paper "CLAD: Towards Robust Audio Deepfake Detection Against Manipulation Attacks with Contrastive Learning".
+This repository includes the code to reproduce our paper "CLAD: Robust Audio Deepfake Detection Against Manipulation Attacks with Contrastive Learning".
 
-Our paper is still under review. Current version contains the main part of the code of CLAD which contains the complete evaluation script of manipulation attacks. You can evaluate the pretrained CLAD model to reproduce our results.
-
-A more comprehensive version will be available soon.
+Our paper is still under review. Code here contains the complete evaluation script of manipulation attacks. You can evaluate the pretrained CLAD model and other baselines to reproduce our results.
 
 ## Get started
 
@@ -63,6 +61,13 @@ Then, download the pretrained RawNet2 model from https://www.asvspoof.org/asvspo
 
 Res-TSSDNet does not use a config file, and you just need to download the [pretrained model released by authors](https://github.com/ghua-ac/end-to-end-synthetic-speech-detection/blob/main/pretrained/Res_TSSDNet_time_frame_61_ASVspoof2019_LA_Loss_0.0017_dEER_0.74%25_eEER_1.64%25.pth) and change the `res_tssdnet_model_path` in the config to its path.
 
+### Preparation for the Evaluation of SAMO
+
+To evaluate the SAMO model, we have incorporated its code directly into our repository. The only modification made is to the import lines to ensure it works correctly. Follow these steps to prepare for the SAMO evaluation:
+
+1. Download the `aasist` directory from the [SAMO repository](https://github.com/sivannavis/samo/tree/main/samo/aasist) and place it in the root of this repository. (This is required for loading the SAMO model released by the authors.)
+
+2. Download the pretrained SAMO model from the [official release](https://github.com/sivannavis/samo/blob/main/models/samo.pt), and update the `samo_model_path` variable with the path to the downloaded model file.
 
 ## Acknowledgements
 We would like to thank the authors and contributors of the following open source projects and datasets that we used in our work. We acknowledge their valuable efforts and generous sharing of their resources.
@@ -70,6 +75,7 @@ We would like to thank the authors and contributors of the following open source
 - [ASVspoof 2021 baseline repo](https://github.com/asvspoof-challenge/2021/tree/main/LA/Baseline-RawNet2)
 - [AASIST](https://github.com/clovaai/aasist/tree/main)
 - [Res-TSSDNet implementation](https://github.com/ghua-ac/end-to-end-synthetic-speech-detection)
+- [SAMO](https://github.com/sivannavis/samo)
 - [torch-time-stretch](https://github.com/KentoNishi/torch-time-stretch)
 - [MoCo](https://github.com/facebookresearch/moco)
 - [ASVspoof 2019 dataset](https://www.asvspoof.org/index2019.html)
