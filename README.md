@@ -53,7 +53,7 @@ Then, download the pretrained AASIST model from https://github.com/clovaai/aasis
 
 ### Preparation for the evaluation of RawNet2
 
-Please download config file of AASIST from https://github.com/asvspoof-challenge/2021/blob/main/LA/Baseline-RawNet2/model_config_RawNet.yaml, and change the `rawnet2_config_path` to its path.
+Please download config file of RawNet2 from https://github.com/asvspoof-challenge/2021/blob/main/LA/Baseline-RawNet2/model_config_RawNet.yaml, and change the `rawnet2_config_path` to its path.
 
 Then, download the pretrained RawNet2 model from https://www.asvspoof.org/asvspoof2021/pre_trained_DF_RawNet2.zip, and change the `rawnet2_model_path` to its path.
 
