@@ -375,9 +375,9 @@ class MoCoAudioDataset(torch.utils.data.Dataset):
 
 # Evaluation utilities
 # Mainly modified from https://github.com/asvspoof-challenge/2021/blob/main/LA/Baseline-RawNet2/data_utils.py by "Hemlata Tak"
-
+# Obtain speaker information for SAMO implementation
 def genSpoof_list( dir_meta,is_train=False,is_eval=False):
-    
+    utt2spk = {}
     d_meta = {}
     file_list=[]
     with open(dir_meta, 'r') as f:
@@ -385,23 +385,24 @@ def genSpoof_list( dir_meta,is_train=False,is_eval=False):
 
     if (is_train):
         for line in l_meta:
-            _, key,_,_,label = line.strip().split(' ')
+            spk, key,_,_,label = line.strip().split(' ')
+            utt2spk[key] = spk
             file_list.append(key)
             d_meta[key] = 1 if label == 'bonafide' else 0
-        return d_meta,file_list
+        return d_meta,file_list,utt2spk
     
     elif(is_eval):
         for line in l_meta:
             key= line.strip()
             file_list.append(key)
         return file_list
-    else:  # so same as is_train?
+    else:  # so same as is_train ?? by haulyn5
         for line in l_meta:
-            _, key,_,_,label = line.strip().split(' ')
+            spk, key,_,_,label = line.strip().split(' ')
+            utt2spk[key] = spk
             file_list.append(key)
             d_meta[key] = 1 if label == 'bonafide' else 0
-        return d_meta,file_list
-
+        return d_meta,file_list,utt2spk
 
 
 def pad(x, max_len=64600):
@@ -415,7 +416,7 @@ def pad(x, max_len=64600):
 			
 
 class Dataset_ASVspoof2019_train(Dataset):
-    def __init__(self, list_IDs, labels, base_dir, cut_length=64600):
+    def __init__(self, list_IDs, labels, utt2spk, base_dir, cut_length=64600):
             '''self.list_IDs	: list of strings (each string: utt key),
                self.labels      : dictionary (key: utt key, value: label integer)'''
                
@@ -423,6 +424,7 @@ class Dataset_ASVspoof2019_train(Dataset):
             self.labels = labels
             self.base_dir = base_dir
             self.cut = cut_length
+            self.utt2spk = utt2spk
         
     def __len__(self):
            return len(self.list_IDs)
@@ -434,9 +436,10 @@ class Dataset_ASVspoof2019_train(Dataset):
             X,fs = librosa.load(self.base_dir+'flac/'+key+'.flac', sr=16000) 
             X_pad= pad(X,self.cut)
             x_inp= torch.Tensor(X_pad)
-            x_inp = torch.unsqueeze(x_inp, 0)  # added by CLAD authors, add a dimension for channels In order to be consistent with the previous dataset
+            x_inp = torch.unsqueeze(x_inp, 0)  # added by haulyn5, add a dimension for channels In order to be consistent with the previous dataset
             y = self.labels[key]
-            return x_inp, y
+            spk = self.utt2spk[key]
+            return x_inp, spk, y
 
 # A upgraded version of pad_or_clip function, which can process batched audio, zero padding or  clipping them to the same length
 def pad_or_clip_batch(audio, audio_len, random_clip=True):

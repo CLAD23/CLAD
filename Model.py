@@ -1543,3 +1543,56 @@ class SSDNet1DEncoder(nn.Module):  # modified Res-TSSDNet to pass the last outpu
         x = F.relu(self.fc2(x))
         # x = self.out(x)
         return x
+
+
+# SAMO
+
+
+class SAMOArgs:
+    def __init__(self):
+        self.seed = 10
+        self.path_to_database = "Not initiated"
+        self.path_to_protocol = "./samo/protocols"
+        self.out_fold = './models/try/'
+        self.overwrite = False
+        self.enc_dim = 160
+        self.num_epochs = 100
+        self.batch_size = 32
+        self.lr = 0.0001
+        self.lr_min = 0.000005
+        self.lr_decay = 0.95
+        self.interval = 1
+        self.scheduler = "cosine2"
+        self.beta_1 = 0.9
+        self.beta_2 = 0.999
+        self.eps = 1e-8
+        self.gpu = "0"
+        self.num_workers = 0
+        self.loss = "samo"
+        self.num_centers = 20
+        self.initialize_centers = "one_hot"
+        self.m_real = 0.7
+        self.m_fake = 0
+        self.alpha = 20
+        self.continue_training = False
+        self.checkpoint = None
+        self.test_on_eval = False
+        self.final_test = False
+        self.test_interval = 5
+        self.save_interval = 5
+        self.test_only = False
+        self.test_model = "./models/anti-spoofing_feat_model.pt"
+        self.scoring = None
+        self.save_score = None
+        self.save_center = False
+        self.dp = False
+        self.one_hot = False
+        self.train_sp = 1
+        self.val_sp = 1
+        self.target = 1
+        self.update_interval = 3
+        self.init_center = 1
+        self.update_stop = None
+        self.center_sampler = "sequential"
+        self.cuda = torch.cuda.is_available()
+        self.device = torch.device("cuda" if self.cuda else "cpu")
